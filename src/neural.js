@@ -1,5 +1,13 @@
+// get random gaussian number with standard deviation using Box-Muller transform
+function randGaussian(std = 1) {
+  var u = 0, v = 0;
+  while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
+  while(v === 0) v = Math.random();
+  return std * Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
+}
+
 class perceptron {
-  constructor(weights, bias) {
+  constructor(weights, bias = 0) {
     this.weights = weights;
     this.bias = bias
   }
@@ -26,5 +34,14 @@ class perceptron {
 }
 
 class layer {
-  constructor(size) 
+  constructor(size, nInputs) {
+    this.perceptrons = []
+
+    // add perceptrons to layer
+    for(let i = 0; i < size; i++) {
+      // initialize weight using He method
+      var std = 
+      this.perceptrons.push()
+    }
+  }
 }
