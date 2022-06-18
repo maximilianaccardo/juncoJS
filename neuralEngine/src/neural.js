@@ -1,4 +1,4 @@
-import { RNG } from "./rng";
+import { RNG } from "./rng.js";
 
 class Perceptron {
   constructor(weights, bias = 0) {
@@ -29,6 +29,9 @@ class Perceptron {
 
 class Layer {
   constructor(size, nInputs, randomSeed = 42) {
+    this.nInputs = nInputs
+    this.size = size
+
     this.perceptrons = []
     var r = new RNG(randomSeed)
 
@@ -38,11 +41,24 @@ class Layer {
       var std = Math.sqrt(2/nInputs)
       var weights = []
       for(let j = 0; j < nInputs; j++) {
-        weights.push(RNG.randGaussian(std))
+        weights.push(r.randGaussian(std))
       }
 
       this.perceptrons.push(new Perceptron(weights))
     }
+  }
+
+  evaluate(inputs) {
+    if(inputs.length != this.nInputs) {
+      throw new Error("Input size mismatch")
+    }
+
+    var outputs = []
+    for(let i = 0; i < this.size; i++) {
+      outputs.push(this.perceptrons[i].evaluate(inputs))
+    }
+
+    return outputs
   }
 }
 
