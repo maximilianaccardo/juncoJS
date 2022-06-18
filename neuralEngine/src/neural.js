@@ -1,3 +1,5 @@
+import { RNG } from "./rng";
+
 class Perceptron {
   constructor(weights, bias = 0) {
     this.weights = weights;
@@ -26,14 +28,20 @@ class Perceptron {
 }
 
 class Layer {
-  constructor(size, nInputs, randomSeed = Math.random()) {
+  constructor(size, nInputs, randomSeed = 42) {
     this.perceptrons = []
+    var r = new RNG(randomSeed)
 
     // add perceptrons to layer
     for(let i = 0; i < size; i++) {
       // initialize weight using He method
       var std = Math.sqrt(2/nInputs)
-      this.perceptrons.push()
+      var weights = []
+      for(let j = 0; j < nInputs; j++) {
+        weights.push(RNG.randGaussian(std))
+      }
+
+      this.perceptrons.push(new Perceptron(weights))
     }
   }
 }
