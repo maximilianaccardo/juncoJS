@@ -18,13 +18,6 @@ class RNG {
   }
 }
 
-var r = new RNG(632)
-var rs = []
-for(let i = 0; i < 4; i++) {
-  rs.push(r.random())
-}
-console.log(rs)
-
 export {
   RNG
 }

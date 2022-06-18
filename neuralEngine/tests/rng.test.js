@@ -33,4 +33,15 @@ describe('rng', () => {
         -1.1408820709540242
       ])
   })
+
+  test('randomizer generates correct gaussian numbers with given standard deviation', () => {
+    var r = new RNG(42)
+    expect([r.randGaussian(10), r.randGaussian(10), r.randGaussian(10), r.randGaussian(10)])
+      .toStrictEqual([
+        -9.56162229384149,
+        -2.730261048826104,
+        -18.416271847835965,
+        -11.408820709540242
+      ])
+  })
 })
