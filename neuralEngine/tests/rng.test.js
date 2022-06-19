@@ -1,6 +1,6 @@
 import { RNG } from "../src/rng"
 
-describe('rng', () => {
+describe('RNG', () => {
   test('randomizer generates same results with same seed', () => {
     var r = new RNG(42)
     expect([r.random(), r.random(), r.random(), r.random()])

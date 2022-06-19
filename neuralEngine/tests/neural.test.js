@@ -1,4 +1,4 @@
-import { Perceptron, Layer } from "../src/neural"
+import { Perceptron, Layer, Network } from "../src/neural"
 
 describe('Perceptron', () => {
   test('perceptron has correct output with multiple inputs', () => {
@@ -53,6 +53,43 @@ describe('Layer', () => {
         0,
         0,
         0
+      ])
+  })
+
+  test('error if not enough inputs', () => {
+    const l = new Layer(10, 10)
+    const inputs = [3, 1]
+    expect(() => {
+        l.evaluate(inputs)
+    })
+      .toThrowError("Input size mismatch")
+  })
+})
+
+describe("Network", () => {
+  test('network gives expected output', () => {
+    const n =  new Network([4, 10, 8, 5])
+    const inputs = [0.4, 0.1, 0.5, -0.6]
+    expect(n.evaluate(inputs))
+      .toStrictEqual([
+          0,
+          1.3612844133589292,
+          0.5245941614626803,
+          2.4680381751431137,
+          1.1084211422895172
+        ])
+  })
+
+  test('network gives expect output with given seed', () => {
+    const n =  new Network([4, 10, 8, 5], 101)
+    const inputs = [0.4, 0.1, 0.5, -0.6]
+    expect(n.evaluate(inputs))
+      .toStrictEqual([
+        0.5927792216329292,
+        0,
+        0.5696745474929503,
+        0,
+        0.4524785451551688
       ])
   })
 })

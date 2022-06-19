@@ -62,7 +62,31 @@ class Layer {
   }
 }
 
+class Network {
+  constructor(sizes, seed = 42) {
+    this.layers = []
+    this.sizes = sizes
+
+    // add layers to network
+    for(let i = 1; i < sizes.length; i++) {
+      this.layers.push(new Layer(sizes[i], sizes[i - 1], seed))
+    }
+  }
+
+  // get output of neural network
+  evaluate(inputs) {
+    for(let i = 0; i < this.layers.length; i++) {
+      let l = this.layers[i]
+
+      inputs = l.evaluate(inputs)
+    }
+
+    return inputs
+  }
+}
+
 export {
   Perceptron,
-  Layer
+  Layer,
+  Network
 }
