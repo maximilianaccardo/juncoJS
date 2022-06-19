@@ -1,4 +1,4 @@
-import { Perceptron } from "../src/neural"
+import { Perceptron, Layer } from "../src/neural"
 
 describe('Perceptron', () => {
   test('perceptron has correct output with multiple inputs', () => {
@@ -16,5 +16,43 @@ describe('Perceptron', () => {
 
     const p = new Perceptron(weights)
     expect(p.evaluate(inputs)).toBe(0)
+  })
+})
+
+describe('Layer', () => {
+  test('layer gives correct output', () => {
+    const l = new Layer(10, 4)
+    const inputs = [0.42, -.1, .9, 1]
+    expect(l.evaluate(inputs))
+      .toStrictEqual([
+        0,
+        0,
+        1.1033309510559273,
+        1.8544946340109705,
+        1.1490863497528467,
+        0.28412899883324727,
+        0,
+        0.21681104465821055,
+        0.47895061448910736,
+        0
+      ])
+  })
+
+  test('layer gives correct output with given seed', () => {
+    const l = new Layer(10, 4, 26)
+    const inputs = [0.42, -.1, .9, 1]
+    expect(l.evaluate(inputs))
+      .toStrictEqual([
+        0,
+        0.5673702010972761,
+        0.3464103846157112,
+        0,
+        0.03798421200938584,
+        0.3756912151543452,
+        0.059735653494415175,
+        0,
+        0,
+        0
+      ])
   })
 })
