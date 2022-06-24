@@ -1,7 +1,16 @@
-const Network = () => {
+const NetworkControls = () => {
+  return (
+    <p>Neural network controls go here</p>
+  )
+}
+
+const NetworkView = () => {
   return (
     <p>Neural network displays here</p>
   )
 }
 
-export {Network}
+export {
+  NetworkView,
+  NetworkControls
+}
