@@ -78,13 +78,19 @@ class Network {
 
   // get output of neural network
   evaluate(inputs) {
+    var outputMap = [inputs]
     for(let i = 0; i < this.layers.length; i++) {
       let l = this.layers[i]
 
       inputs = l.evaluate(inputs)
+      outputMap.push(inputs)
     }
+    
 
-    return inputs
+    return {
+      outputs: inputs,
+      outputMap: outputMap
+    }
   }
 }
 

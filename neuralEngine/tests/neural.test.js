@@ -70,7 +70,7 @@ describe("Network", () => {
   test('network gives expected output', () => {
     const n =  new Network([4, 10, 8, 5])
     const inputs = [0.4, 0.1, 0.5, -0.6]
-    expect(n.evaluate(inputs))
+    expect(n.evaluate(inputs).outputs)
       .toStrictEqual([
           0,
           1.3612844133589292,
@@ -83,7 +83,7 @@ describe("Network", () => {
   test('network gives expect output with given seed', () => {
     const n =  new Network([4, 10, 8, 5], 101)
     const inputs = [0.4, 0.1, 0.5, -0.6]
-    expect(n.evaluate(inputs))
+    expect(n.evaluate(inputs).outputs)
       .toStrictEqual([
         0.5927792216329292,
         0,
@@ -91,5 +91,19 @@ describe("Network", () => {
         0,
         0.4524785451551688
       ])
+  })
+
+  test('first layer in output map is inputs', () => {
+    const n =  new Network([4, 10, 8, 5], 101)
+    const inputs = [0.4, 0.1, 0.5, -0.6]
+    expect(n.evaluate(inputs).outputMap[0])
+      .toStrictEqual(inputs)
+  })
+
+  test('last layer in output map is final output', () => {
+    const n =  new Network([4, 10, 8, 5], 101)
+    const inputs = [0.4, 0.1, 0.5, -0.6]
+    expect(n.evaluate(inputs).outputMap[3])
+      .toStrictEqual(n.evaluate(inputs).outputs)
   })
 })
