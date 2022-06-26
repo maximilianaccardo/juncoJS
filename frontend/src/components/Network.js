@@ -16,7 +16,7 @@ const NetworkControls = ({network, setNetworkOutput}) => {
   const updateOutput = (event) => {
     event.preventDefault()
 
-    var o = network.evaluate(inputs)
+    var o = network.evaluate(inputs).outputMap
     setNetworkOutput(o)
   }
 
@@ -49,11 +49,17 @@ const NetworkControls = ({network, setNetworkOutput}) => {
 const NetworkView = ({network, networkOutput}) => {
   return (
     <div>
-      <h2>Output</h2>
+      <h2>Neural Network</h2>
       {
         networkOutput &&
         networkOutput.map((o, i) => 
-          <li key={i}>{o}</li>
+          <ul key={i}>
+            {
+              o.map((l, j) => 
+                <li key={j}>{l}</li>
+              )
+            }
+          </ul>
         )
       }
     </div>
