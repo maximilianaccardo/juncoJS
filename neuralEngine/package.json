@@ -2,8 +2,8 @@
   "name": "junco",
   "version": "0.1.0",
   "type": "module",
+  "main": "./src/neural.js",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "test": "jest --verbose"
   },

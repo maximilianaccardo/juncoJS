@@ -1,6 +1,10 @@
 const NetworkControls = () => {
   return (
-    <p>Neural network controls go here</p>
+    <form>
+      <div id="inputs">
+        <input type="number"></input>
+      </div>
+    </form>
   )
 }
 
