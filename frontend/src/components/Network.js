@@ -17,8 +17,6 @@ const NetworkControls = ({network, setNetworkOutput}) => {
     event.preventDefault()
 
     var o = network.evaluate(inputs)
-    // round to 2 decimals
-    // to do
     setNetworkOutput(o)
   }
 
@@ -52,7 +50,12 @@ const NetworkView = ({network, networkOutput}) => {
   return (
     <div>
       <h2>Output</h2>
-      <h3>{networkOutput}</h3>
+      {
+        networkOutput &&
+        networkOutput.map((o, i) => 
+          <li key={i}>{o}</li>
+        )
+      }
     </div>
   )
 }
