@@ -1,4 +1,5 @@
 import { RNG } from "./rng.js";
+import { getId } from "./id.js"
 
 class Perceptron {
   constructor(weights, bias = 0) {
@@ -31,6 +32,7 @@ class Layer {
   constructor(size, nInputs, randomSeed = 42) {
     this.nInputs = nInputs
     this.size = size
+    this.id = getId()
 
     this.perceptrons = []
     var r = new RNG(randomSeed)
@@ -66,6 +68,7 @@ class Network {
   constructor(sizes, seed = 42) {
     this.layers = []
     this.sizes = sizes
+    this.nInputs = this.sizes[0]
 
     // add layers to network
     for(let i = 1; i < sizes.length; i++) {
