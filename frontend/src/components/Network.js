@@ -1,4 +1,6 @@
+import React from 'react'
 import {useState} from 'react'
+import * as d3 from "d3"
 
 const NetworkControls = ({network, setNetworkOutput}) => {
   const [inputs, setInputs] = useState([0, 0, 0, 0])
@@ -48,7 +50,14 @@ const NetworkControls = ({network, setNetworkOutput}) => {
 }
 
 const NetworkView = ({network, networkOutput}) => {
-  
+  const svgRef = React.useRef(null)
+  const svg = d3.select(svgRef.current)
+  svg
+    .append('circle')
+    .attr('cx', '50%')
+    .attr('cy', '50%')
+    .attr('r', 20)
+    .style('fill', 'green');
 
   return (
     <div>
@@ -65,6 +74,7 @@ const NetworkView = ({network, networkOutput}) => {
           </ul>
         )
       }
+      <svg ref={svgRef}></svg>
     </div>
   )
 }
