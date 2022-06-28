@@ -23,6 +23,7 @@ const NetworkControls = ({network, setNetworkOutput}) => {
   return (
     <div>
       <h2>Controls</h2>
+      <h3>Inputs</h3>
       <form onSubmit={updateOutput}>
           {
             [...Array(network.nInputs)].map((el, i) => {
@@ -47,6 +48,8 @@ const NetworkControls = ({network, setNetworkOutput}) => {
 }
 
 const NetworkView = ({network, networkOutput}) => {
+  
+
   return (
     <div>
       <h2>Neural Network</h2>
