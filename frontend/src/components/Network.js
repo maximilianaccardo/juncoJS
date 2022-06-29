@@ -59,6 +59,7 @@ const NetworkView = ({network, networkOutput}) => {
     .attr('r', 20)
     .style('fill', 'green');
 
+  
   return (
     <div>
       <h2>Neural Network</h2>
