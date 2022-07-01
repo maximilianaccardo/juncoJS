@@ -52,14 +52,20 @@ const NetworkControls = ({network, setNetworkOutput}) => {
 const NetworkView = ({network, networkOutput}) => {
   const svgRef = React.useRef(null)
   const svg = d3.select(svgRef.current)
+
   svg
-    .append('circle')
-    .attr('cx', '50%')
+    .selectAll('circle')
+    .data([1,4,5,1])
+    .enter()
+    .append("circle")
+    .attr('cx', (d, i) => {
+      return 50 + i * 100
+    })
     .attr('cy', '50%')
     .attr('r', 20)
-    .style('fill', 'green');
+    .style('fill', 'green')
 
-  
+  svg.node()
   return (
     <div>
       <h2>Neural Network</h2>
