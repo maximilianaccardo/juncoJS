@@ -1,6 +1,6 @@
 import React from 'react'
 import {useState} from 'react'
-import * as d3 from "d3"
+import chroma from "chroma-js"
 
 const NetworkControls = ({network, setNetworkOutput}) => {
   const [inputs, setInputs] = useState([0, 0, 0, 0])
@@ -50,38 +50,29 @@ const NetworkControls = ({network, setNetworkOutput}) => {
 }
 
 const NetworkView = ({network, networkOutput}) => {
-  const svgRef = React.useRef(null)
-  const svg = d3.select(svgRef.current)
+  const colorScale = chroma.scale(["black", "red"])
 
-  svg
-    .selectAll('circle')
-    .data([1,4,5,1])
-    .enter()
-    .append("circle")
-    .attr('cx', (d, i) => {
-      return 50 + i * 100
-    })
-    .attr('cy', '50%')
-    .attr('r', 20)
-    .style('fill', 'green')
-
-  svg.node()
   return (
     <div>
       <h2>Neural Network</h2>
+      <svg viewBox='0 0 1000 5000'>
       {
         networkOutput &&
-        networkOutput.map((o, i) => 
-          <ul key={i}>
-            {
-              o.map((l, j) => 
-                <li key={j}>{l}</li>
-              )
-            }
-          </ul>
+        networkOutput.map((o, i) =>
+          o.map((l, j) => 
+            <circle
+              cx={100 + i * 200}
+              cy={50 + j * 100}
+              r="20"
+              style={{
+                fill: colorScale(l)
+              }}
+            />
+          ) 
         )
       }
-      <svg ref={svgRef}></svg>
+      
+      </svg>
     </div>
   )
 }
