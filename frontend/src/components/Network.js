@@ -52,26 +52,71 @@ const NetworkControls = ({network, setNetworkOutput}) => {
 const NetworkView = ({network, networkOutput}) => {
   const colorScale = chroma.scale(["black", "red"])
 
+  // calculate locations of nodes
+  const nodes = []
+  if(networkOutput) {
+    networkOutput.forEach((o, i) => {
+      const layerNodes = []
+      o.forEach((l, j) => {
+        let node = {}
+        node.x = 100 + i * 170
+        node.y = 50 + j * 100
+        node.color = colorScale(l)
+        layerNodes.push(node)
+      })
+      nodes.push(layerNodes)
+    })
+  }
+
+  // calculate locations of lines
+  const lines = []
+  for(let i = 0; i < nodes.length - 1; i ++) {
+    for(let j = 0; j < nodes[i].length; j++) {
+      for(let k = 0; k < nodes[i + 1].length; k++) {
+        let line = {}
+
+        // starting node
+        line.x1 = nodes[i][j].x
+        line.y1 = nodes[i][j].y
+
+        // node in next layer
+        line.x2 = nodes[i + 1][k].x
+        line.y2 = nodes[i + 1][k].y
+
+        lines.push(line)
+      }
+    }
+  }
+
   return (
     <div>
       <h2>Neural Network</h2>
-      <svg viewBox='0 0 1000 5000'>
-      {
-        networkOutput &&
-        networkOutput.map((o, i) =>
-          o.map((l, j) => 
+      <svg viewBox='0 0 1200 4000'>
+        {
+          lines.map((l, i) => 
+            <line
+              key={i}
+              x1={l.x1}
+              y1={l.y1}
+              x2={l.x2}
+              y2={l.y2}
+              stroke="black"
+            />
+          )
+        }
+        {
+          nodes.flat().map((n) => 
             <circle
-              cx={100 + i * 200}
-              cy={50 + j * 100}
+              cx={n.x}
+              cy={n.y}
               r="20"
               style={{
-                fill: colorScale(l)
+                fill: n.color
               }}
             />
-          ) 
-        )
-      }
-      
+          )
+        }
+
       </svg>
     </div>
   )

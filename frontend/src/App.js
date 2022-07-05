@@ -5,7 +5,7 @@ import { NetworkControls, NetworkView } from "./components/Network";
 
 function App() {
   // create network
-  const n = new Network([4, 10, 10, 4])
+  const n = new Network([4, 10, 10, 10, 10, 4])
   const [network] = useState(n)
   const [networkOutput, setNetworkOutput] = useState(null)
 
