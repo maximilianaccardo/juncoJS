@@ -54,13 +54,26 @@ const NetworkView = ({network, networkOutput}) => {
 
   // calculate locations of nodes
   const nodes = []
+
   if(networkOutput) {
+    // vertical spacing between nodes
+    const vSpace = 100
+
+    // get vertical center of graph
+    const maxLayer = Math.max(
+      ...networkOutput.map((l) => 
+        l.length
+      )
+    )
+    const vCenter = (vSpace * maxLayer) / 2
+
     networkOutput.forEach((o, i) => {
       const layerNodes = []
+      let vStart = vCenter - (((o.length - 1) / 2) * vSpace)
       o.forEach((l, j) => {
         let node = {}
         node.x = 100 + i * 170
-        node.y = 50 + j * 100
+        node.y = vStart + j * vSpace
         node.color = colorScale(l)
         layerNodes.push(node)
       })
