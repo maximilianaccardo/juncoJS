@@ -2,8 +2,11 @@ import React from 'react'
 import {useState} from 'react'
 import chroma from "chroma-js"
 
-const NetworkControls = ({network, setNetworkOutput}) => {
-  const [inputs, setInputs] = useState([0, 0, 0, 0])
+import { StructureControls } from './Controls'
+
+const NetworkControls = ({network, setNetwork, setNetworkOutput}) => {
+  const defaults = Array(network.nInputs).fill(0)
+  const [inputs, setInputs] = useState(defaults)
 
   const handleInputChange = (event) => {
     var newInputs = [...inputs]
@@ -43,6 +46,10 @@ const NetworkControls = ({network, setNetworkOutput}) => {
               )
             })
           }
+          <StructureControls
+            setNetwork={setNetwork}
+            network={network}
+          ></StructureControls>
           <button type="submit">Run</button>
       </form>
     </div>
@@ -96,6 +103,9 @@ const NetworkView = ({network, networkOutput}) => {
         line.x2 = nodes[i + 1][k].x
         line.y2 = nodes[i + 1][k].y
 
+        // get stroke from starting node
+        line.stroke = nodes[i][j].color
+      
         lines.push(line)
       }
     }
@@ -113,7 +123,7 @@ const NetworkView = ({network, networkOutput}) => {
               y1={l.y1}
               x2={l.x2}
               y2={l.y2}
-              stroke="black"
+              stroke={l.stroke}
             />
           )
         }

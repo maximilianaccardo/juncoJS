@@ -5,8 +5,8 @@ import { NetworkControls, NetworkView } from "./components/Network";
 
 function App() {
   // create network
-  const n = new Network([4, 10, 10, 10, 10, 4])
-  const [network] = useState(n)
+  const n = new Network([2, 3, 3, 2], 81)
+  const [network, setNetwork] = useState(n)
   const [networkOutput, setNetworkOutput] = useState(null)
 
   return (
@@ -14,6 +14,7 @@ function App() {
       <NetworkControls 
         network={network}
         setNetworkOutput={setNetworkOutput}
+        setNetwork={setNetwork}
       ></NetworkControls>
       <NetworkView
         network={network}
