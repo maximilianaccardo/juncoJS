@@ -4,8 +4,11 @@ import { Network } from 'junco'
 import { NetworkControls, NetworkView } from "./components/Network";
 
 function App() {
+  // default network structure
+  const [netStructure, setNetStructure] = useState([4, 5, 2])
+
   // create network
-  const n = new Network([2, 3, 3, 2], 81)
+  const n = new Network(netStructure, 81)
   const [network, setNetwork] = useState(n)
   const [networkOutput, setNetworkOutput] = useState(null)
 
@@ -15,6 +18,7 @@ function App() {
         network={network}
         setNetworkOutput={setNetworkOutput}
         setNetwork={setNetwork}
+        setNetStructure={setNetStructure}
       ></NetworkControls>
       <NetworkView
         network={network}

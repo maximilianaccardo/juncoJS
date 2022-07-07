@@ -4,7 +4,7 @@ import chroma from "chroma-js"
 
 import { StructureControls } from './Controls'
 
-const NetworkControls = ({network, setNetwork, setNetworkOutput}) => {
+const NetworkControls = ({network, setNetwork, setNetworkOutput, setNetStructure}) => {
   const defaults = Array(network.nInputs).fill(0)
   const [inputs, setInputs] = useState(defaults)
 
@@ -28,6 +28,11 @@ const NetworkControls = ({network, setNetwork, setNetworkOutput}) => {
   return (
     <div>
       <h2>Controls</h2>
+      <StructureControls
+            setNetwork={setNetwork}
+            network={network}
+            setNetStructure={setNetStructure}
+      ></StructureControls>
       <h3>Inputs</h3>
       <form onSubmit={updateOutput}>
           {
@@ -46,10 +51,7 @@ const NetworkControls = ({network, setNetwork, setNetworkOutput}) => {
               )
             })
           }
-          <StructureControls
-            setNetwork={setNetwork}
-            network={network}
-          ></StructureControls>
+
           <button type="submit">Run</button>
       </form>
     </div>
