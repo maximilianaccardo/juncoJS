@@ -6,17 +6,17 @@ const StructureControls = ({network, setNetwork, setNetworkOutput, netStructure,
 
     const i = e.target.dataset.layer
     const val = e.target.value
-    console.log(i,val)
 
     newStructure[i] = val
-    console.log(newStructure)
     setNetStructure(newStructure)
   }
 
   const updateNetwork = (e) => {
     e.preventDefault()
-    setNetwork(new Network(netStructure))
-    setNetworkOutput(network.evaluate(inputs).outputMap)
+    console.log("updating network...")
+    const newNetwork = new Network(netStructure)
+    setNetwork(newNetwork)
+    setNetworkOutput(newNetwork.evaluate(inputs).outputMap)
   }
 
   return (
