@@ -1,4 +1,9 @@
-import { Perceptron, Layer, Network } from "../src/neural"
+import {
+  Perceptron,
+  Layer,
+  Network,
+  NetworkOutput
+ } from "../src/neural"
 
 describe('Perceptron', () => {
   test('perceptron has correct output with multiple inputs', () => {
@@ -105,5 +110,22 @@ describe("Network", () => {
     const inputs = [0.4, 0.1, 0.5, -0.6]
     expect(n.evaluate(inputs).outputMap[3])
       .toStrictEqual(n.evaluate(inputs).outputs)
+  })
+})
+
+describe("NetworkOutput", () => {
+  test('mse loss function gives correct loss', () => {
+    const outputs = {
+      outputs: [1, 4, 2, 5],
+      outputMap: [
+        [2, 4, 3],
+        [1, 4, 2, 5]
+      ]
+    }
+
+    const no = new NetworkOutput(outputs)
+
+    expect(no.loss([2, 6, 1, 5]))
+      .toEqual(6)
   })
 })

@@ -128,5 +128,6 @@ const NetworkView = ({network, networkOutput}) => {
 
 export {
   NetworkView,
-  NetworkControls
+  NetworkControls,
+  NetworkOutput
 }

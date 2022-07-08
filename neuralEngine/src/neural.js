@@ -94,8 +94,36 @@ class Network {
   }
 }
 
+class NetworkOutput {
+  constructor(outputs) {
+    this.outputs = outputs.outputs
+    this.outputMap = outputs.outputMap
+  }
+
+  // calculate loss
+  loss(expectedOutputs, lossFunc="mse") {
+    if(lossFunc == "mse") {
+      lossFunc = this.#mse
+    }
+
+    return lossFunc(this.outputs, expectedOutputs)
+  }
+
+  // mean squared error
+  #mse(actual, expected) {
+    var loss = 0
+
+    for(let i = 0; i < actual.length; i++) {
+      loss += (actual[i] - expected[i]) ** 2
+    }
+
+    return loss
+  }
+}
+
 export {
   Perceptron,
   Layer,
-  Network
+  Network,
+  NetworkOutput
 }
