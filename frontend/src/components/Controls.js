@@ -1,4 +1,5 @@
 import { Network } from "junco"
+import { GenericInput } from "./Inputs"
 
 const StructureControls = ({
   network,
@@ -9,13 +10,15 @@ const StructureControls = ({
   inputs,
   setInputs
 }) => {
+  // update structure state when input changed
   const handleStructureChange = (e) => {
     var newStructure = [...netStructure]
 
-    const i = e.target.dataset.layer
+    const i = e.target.dataset.i
     const val = e.target.value
  
     newStructure[i] = val
+    console.log(newStructure)
     setNetStructure(newStructure)
   }
 
@@ -42,6 +45,7 @@ const StructureControls = ({
     setNetStructure(newStructure)
   }
 
+  // replace network when update pressed with new strucutre
   const updateNetwork = (e) => {
     e.preventDefault()
 
@@ -62,43 +66,21 @@ const StructureControls = ({
       <form onSubmit={updateNetwork}>
         {
           netStructure.map((l, i) => 
-            <LayerInput
-              key={i}
-              i={i}
-              value={l}
-              handleStructureChange={handleStructureChange}
-              handleLayerRemoval={handleLayerRemoval}
-              handleLayerAddition={handleLayerAddition}
+            <div key={i}>
+              <GenericInput
+                handleInputChange={handleStructureChange}
+                value={l}
+                i={i}
+                idPrefix="strucutre_input"
               >
-            </LayerInput>
+              </GenericInput>
+              <button data-layer={i} onClick={handleLayerRemoval}>-</button>
+              <button data-layer={i} onClick={handleLayerAddition}>+</button>
+            </div>
           )
         }
         <button type="submit">Update</button>
       </form>
-    </div>
-  )
-}
-
-const LayerInput = ({
-  i,
-  value,
-  handleStructureChange,
-  handleLayerRemoval,
-  handleLayerAddition
-}) => {
-  return (
-    <div>
-          <label>{i}  </label>
-          <input
-            type="number"
-            id={`structure_input_${i}`}
-            data-layer={i}
-            value={value}
-            onChange={handleStructureChange}
-          >
-          </input>
-          <button data-layer={i} onClick={handleLayerRemoval}>-</button>
-          <button data-layer={i} onClick={handleLayerAddition}>+</button>
     </div>
   )
 }
@@ -109,17 +91,17 @@ const InputControls = ({
   network,
   setNetworkOutput
 }) => {
-  const handleFocus = e => e.target.select()
-
+  // change input state when form changed
   const handleInputChange = (event) => {
     var newInputs = [...inputs]
-    const i = event.target.dataset.inputNode
+    const i = event.target.dataset.i
     const val = Number(event.target.value)
 
     newInputs[i] = val
     setInputs(newInputs)
   }
 
+  // evaluate new output of network
   const updateOutput = (event) => {
     event.preventDefault()
 
@@ -133,16 +115,13 @@ const InputControls = ({
       inputs.map((el, i) => {
         return (
           <div key={i}>
-            <label>{i}  </label>
-            <input
-              type="number"
-              id={`input_${i}`}
-              data-input-node={i}
-              onChange={handleInputChange}
+            <GenericInput
+              handleInputChange={handleInputChange}
+              idPrefix="input"
+              i={i}
               value={el}
-              onFocus={handleFocus}
             >
-            </input>
+            </GenericInput>
           </div>
         )
       })
