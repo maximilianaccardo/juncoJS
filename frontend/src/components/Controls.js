@@ -1,34 +1,58 @@
-const StructureControls = ({network, updateNetwork}) => {
+import { Network } from "junco"
+
+const StructureControls = ({network, setNetwork, setNetworkOutput, netStructure, setNetStructure, inputs}) => {
+  const handleStructureChange = (e) => {
+    var newStructure = [...netStructure]
+
+    const i = e.target.dataset.layer
+    const val = e.target.value
+    console.log(i,val)
+
+    newStructure[i] = val
+    console.log(newStructure)
+    setNetStructure(newStructure)
+  }
+
+  const updateNetwork = (e) => {
+    e.preventDefault()
+    setNetwork(new Network(netStructure))
+    setNetworkOutput(network.evaluate(inputs).outputMap)
+  }
+
   return (
     <div>
       <h3>Structure</h3>
-      <form>
-        <LayerInput i={0} value={network.nInputs}></LayerInput>
+      <form onSubmit={updateNetwork}>
         {
-          network.layers.map((l, i) => 
-            <LayerInput key={i + 1} i={i + 1} value={l.size}>
+          netStructure.map((l, i) => 
+            <LayerInput
+              key={i}
+              i={i}
+              value={l}
+              handleStructureChange={handleStructureChange}>
             </LayerInput>
           )
         }
-        <button>+</button>
         <button type="submit">Update</button>
       </form>
     </div>
   )
 }
 
-const LayerInput = ({i, value}) => {
+const LayerInput = ({i, value, handleStructureChange}) => {
   return (
     <div>
           <label>{i}  </label>
           <input
             type="number"
-            id={`input_${i}`}
-            data-input-node={i}
+            id={`structure_input_${i}`}
+            data-layer={i}
             value={value}
+            onChange={handleStructureChange}
           >
           </input>
           <button>-</button>
+          <button>+</button>
     </div>
   )
 }

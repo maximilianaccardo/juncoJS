@@ -1,13 +1,17 @@
 import React from 'react'
-import {useState} from 'react'
 import chroma from "chroma-js"
 
 import { StructureControls } from './Controls'
 
-const NetworkControls = ({network, setNetwork, setNetworkOutput, setNetStructure}) => {
-  const defaults = Array(network.nInputs).fill(0)
-  const [inputs, setInputs] = useState(defaults)
-
+const NetworkControls = ({
+    network,
+    setNetwork,
+    setNetworkOutput,
+    netStructure,
+    setNetStructure,
+    inputs,
+    setInputs
+  }) => {
   const handleInputChange = (event) => {
     var newInputs = [...inputs]
     const i = event.target.dataset.inputNode
@@ -31,7 +35,10 @@ const NetworkControls = ({network, setNetwork, setNetworkOutput, setNetStructure
       <StructureControls
             setNetwork={setNetwork}
             network={network}
+            netStructure={netStructure}
             setNetStructure={setNetStructure}
+            setNetworkOutput={setNetworkOutput}
+            inputs={inputs}
       ></StructureControls>
       <h3>Inputs</h3>
       <form onSubmit={updateOutput}>
@@ -51,7 +58,6 @@ const NetworkControls = ({network, setNetwork, setNetworkOutput, setNetStructure
               )
             })
           }
-
           <button type="submit">Run</button>
       </form>
     </div>
@@ -76,6 +82,7 @@ const NetworkView = ({network, networkOutput}) => {
     )
     const vCenter = (vSpace * maxLayer) / 2
 
+    // calculate locations of nodes
     networkOutput.forEach((o, i) => {
       const layerNodes = []
       let vStart = vCenter - (((o.length - 1) / 2) * vSpace)
@@ -130,8 +137,9 @@ const NetworkView = ({network, networkOutput}) => {
           )
         }
         {
-          nodes.flat().map((n) => 
+          nodes.flat().map((n, i) => 
             <circle
+              key={i}
               cx={n.x}
               cy={n.y}
               r="20"

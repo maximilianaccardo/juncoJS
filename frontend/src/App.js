@@ -10,7 +10,11 @@ function App() {
   // create network
   const n = new Network(netStructure, 81)
   const [network, setNetwork] = useState(n)
-  const [networkOutput, setNetworkOutput] = useState(null)
+
+  const defaults = Array(network.nInputs).fill(0)
+  const [inputs, setInputs] = useState(defaults)
+
+  const [networkOutput, setNetworkOutput] = useState(n.evaluate(inputs).outputMap)
 
   return (
     <div className="App">
@@ -18,7 +22,10 @@ function App() {
         network={network}
         setNetworkOutput={setNetworkOutput}
         setNetwork={setNetwork}
+        netStructure={netStructure}
         setNetStructure={setNetStructure}
+        inputs={inputs}
+        setInputs={setInputs}
       ></NetworkControls>
       <NetworkView
         network={network}
