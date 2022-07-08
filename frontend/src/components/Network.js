@@ -1,7 +1,7 @@
 import React from 'react'
 import chroma from "chroma-js"
 
-import { StructureControls } from './Controls'
+import { StructureControls, InputControls } from './Controls'
 
 const NetworkControls = ({
     network,
@@ -12,54 +12,25 @@ const NetworkControls = ({
     inputs,
     setInputs
   }) => {
-  const handleInputChange = (event) => {
-    var newInputs = [...inputs]
-    const i = event.target.dataset.inputNode
-    const val = Number(event.target.value)
-
-    newInputs[i] = val
-    setInputs(newInputs)
-  }
-
-  const updateOutput = (event) => {
-    event.preventDefault()
-
-    var o = network.evaluate(inputs).outputMap
-    setNetworkOutput(o)
-  }
-
   return (
     <div>
       <h2>Controls</h2>
       <StructureControls
-            setNetwork={setNetwork}
-            network={network}
-            netStructure={netStructure}
-            setNetStructure={setNetStructure}
-            setNetworkOutput={setNetworkOutput}
-            inputs={inputs}
-            setInputs={setInputs}
+          setNetwork={setNetwork}
+          network={network}
+          netStructure={netStructure}
+          setNetStructure={setNetStructure}
+          setNetworkOutput={setNetworkOutput}
+          inputs={inputs}
+          setInputs={setInputs}
       ></StructureControls>
       <h3>Inputs</h3>
-      <form onSubmit={updateOutput}>
-          {
-            [...Array(network.nInputs)].map((el, i) => {
-              return (
-                <div key={i}>
-                  <label>{i}  </label>
-                  <input
-                    type="number"
-                    id={`input_${i}`}
-                    data-input-node={i}
-                    onChange={handleInputChange}
-                  >
-                  </input>
-                </div>
-              )
-            })
-          }
-          <button type="submit">Run</button>
-      </form>
+      <InputControls
+        inputs={inputs}
+        setInputs={setInputs}
+        network={network}
+        setNetworkOutput={setNetworkOutput}
+      ></InputControls>
     </div>
   )
 }

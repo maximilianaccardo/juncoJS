@@ -103,7 +103,56 @@ const LayerInput = ({
   )
 }
 
+const InputControls = ({
+  inputs,
+  setInputs,
+  network,
+  setNetworkOutput
+}) => {
+  const handleFocus = e => e.target.select()
+
+  const handleInputChange = (event) => {
+    var newInputs = [...inputs]
+    const i = event.target.dataset.inputNode
+    const val = Number(event.target.value)
+
+    newInputs[i] = val
+    setInputs(newInputs)
+  }
+
+  const updateOutput = (event) => {
+    event.preventDefault()
+
+    var o = network.evaluate(inputs).outputMap
+    setNetworkOutput(o)
+  }
+
+  return (
+    <form onSubmit={updateOutput}>
+    {
+      inputs.map((el, i) => {
+        return (
+          <div key={i}>
+            <label>{i}  </label>
+            <input
+              type="number"
+              id={`input_${i}`}
+              data-input-node={i}
+              onChange={handleInputChange}
+              value={el}
+              onFocus={handleFocus}
+            >
+            </input>
+          </div>
+        )
+      })
+    }
+    <button type="submit">Run</button>
+</form>
+  )
+}
 
 export {
-  StructureControls
+  StructureControls,
+  InputControls
 }
