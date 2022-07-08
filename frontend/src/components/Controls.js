@@ -21,6 +21,19 @@ const StructureControls = ({network, setNetwork, setNetworkOutput, netStructure,
     setNetStructure(newStructure) 
   }
 
+  // add layer when button clicked
+  const handleLayerAddition = (e) => {
+    e.preventDefault()
+
+    const i = e.target.dataset.layer
+    const newStructure = [...netStructure]
+    const newLayerDefault = 4
+
+    newStructure.splice(i, 0, newLayerDefault)
+
+    setNetStructure(newStructure)
+  }
+
   const updateNetwork = (e) => {
     e.preventDefault()
     console.log("updating network...")
@@ -41,6 +54,7 @@ const StructureControls = ({network, setNetwork, setNetworkOutput, netStructure,
               value={l}
               handleStructureChange={handleStructureChange}
               handleLayerRemoval={handleLayerRemoval}
+              handleLayerAddition={handleLayerAddition}
               >
             </LayerInput>
           )
@@ -55,7 +69,8 @@ const LayerInput = ({
   i,
   value,
   handleStructureChange,
-  handleLayerRemoval
+  handleLayerRemoval,
+  handleLayerAddition
 }) => {
   return (
     <div>
@@ -69,7 +84,7 @@ const LayerInput = ({
           >
           </input>
           <button data-layer={i} onClick={handleLayerRemoval}>-</button>
-          <button>+</button>
+          <button data-layer={i} onClick={handleLayerAddition}>+</button>
     </div>
   )
 }
