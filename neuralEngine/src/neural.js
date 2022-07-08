@@ -52,7 +52,7 @@ class Layer {
 
   evaluate(inputs) {
     if(inputs.length != this.nInputs) {
-      throw new Error("Input size mismatch")
+      throw new Error(`Input size mismatch: expected ${this.nInputs} got ${inputs.length}`)
     }
 
     var outputs = []
@@ -78,7 +78,7 @@ class Network {
 
   // get output of neural network
   evaluate(inputs) {
-    var outputMap = [inputs]
+     var outputMap = [inputs]
     for(let i = 0; i < this.layers.length; i++) {
       let l = this.layers[i]
 

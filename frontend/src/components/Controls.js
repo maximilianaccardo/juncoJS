@@ -1,12 +1,20 @@
 import { Network } from "junco"
 
-const StructureControls = ({network, setNetwork, setNetworkOutput, netStructure, setNetStructure, inputs}) => {
+const StructureControls = ({
+  network,
+  setNetwork,
+  setNetworkOutput,
+  netStructure,
+  setNetStructure,
+  inputs,
+  setInputs
+}) => {
   const handleStructureChange = (e) => {
     var newStructure = [...netStructure]
 
     const i = e.target.dataset.layer
     const val = e.target.value
-
+ 
     newStructure[i] = val
     setNetStructure(newStructure)
   }
@@ -16,7 +24,7 @@ const StructureControls = ({network, setNetwork, setNetworkOutput, netStructure,
     e.preventDefault()
 
     const i = e.target.dataset.layer
-    var newStructure = netStructure.filter((_, j) => j != i)
+    var newStructure = netStructure.filter((_, j) => j !== i)
   
     setNetStructure(newStructure) 
   }
@@ -36,10 +44,16 @@ const StructureControls = ({network, setNetwork, setNetworkOutput, netStructure,
 
   const updateNetwork = (e) => {
     e.preventDefault()
-    console.log("updating network...")
+
     const newNetwork = new Network(netStructure)
+
+     // set new default inputs
+     var n = newNetwork.nInputs
+     const d = Array(Number(n)).fill(0)
+     setInputs(d)
+    
     setNetwork(newNetwork)
-    setNetworkOutput(newNetwork.evaluate(inputs).outputMap)
+    setNetworkOutput(newNetwork.evaluate(d).outputMap)
   }
 
   return (

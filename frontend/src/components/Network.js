@@ -39,6 +39,7 @@ const NetworkControls = ({
             setNetStructure={setNetStructure}
             setNetworkOutput={setNetworkOutput}
             inputs={inputs}
+            setInputs={setInputs}
       ></StructureControls>
       <h3>Inputs</h3>
       <form onSubmit={updateOutput}>
