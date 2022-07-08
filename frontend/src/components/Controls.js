@@ -24,8 +24,8 @@ const StructureControls = ({
     e.preventDefault()
 
     const i = e.target.dataset.layer
-    var newStructure = netStructure.filter((_, j) => j !== i)
-  
+    var newStructure = netStructure.filter((_, j) => j !== Number(i))
+    console.log(newStructure)
     setNetStructure(newStructure) 
   }
 
@@ -37,7 +37,7 @@ const StructureControls = ({
     const newStructure = [...netStructure]
     const newLayerDefault = 4
 
-    newStructure.splice(i, 0, newLayerDefault)
+    newStructure.splice(i+1, 0, newLayerDefault)
 
     setNetStructure(newStructure)
   }

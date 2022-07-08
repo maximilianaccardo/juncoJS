@@ -14,8 +14,7 @@ function App() {
   const defaults = Array(network.nInputs).fill(0)
   const [inputs, setInputs] = useState(defaults)
 
-  console.log(inputs)
-   const [networkOutput, setNetworkOutput] = useState(network.evaluate(inputs).outputMap)
+  const [networkOutput, setNetworkOutput] = useState(network.evaluate(inputs).outputMap)
 
   return (
     <div className="App">

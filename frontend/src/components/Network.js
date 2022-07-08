@@ -19,7 +19,6 @@ const NetworkControls = ({
 
     newInputs[i] = val
     setInputs(newInputs)
-    console.log(newInputs)
   }
 
   const updateOutput = (event) => {
