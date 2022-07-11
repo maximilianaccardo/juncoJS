@@ -35,6 +35,32 @@ const NetworkControls = ({
   )
 }
 
+const NetworkOptions = ({
+  options,
+  setOptions
+}) => {
+  const handleOptionChange = e => {
+    var newOptions = structuredClone(options)
+    newOptions[e.target.dataset.option] = e.target.checked
+    console.log(e.target.checked)
+    setOptions(newOptions)
+  }
+
+  return (
+    <div>
+      <h2>Options</h2>
+      <input
+        type="checkbox"
+        id="cbEnableTraining"
+        checked={options.training}
+        data-option="training"
+        onChange={handleOptionChange}
+      ></input>
+      <label>Enable Training</label>
+    </div>
+  )
+}
+
 const NetworkView = ({network, networkOutput}) => {
   const colorScale = chroma.scale(["black", "red"])
 
@@ -47,14 +73,14 @@ const NetworkView = ({network, networkOutput}) => {
 
     // get vertical center of graph
     const maxLayer = Math.max(
-      ...networkOutput.map((l) => 
+      ...networkOutput.outputMap.map((l) => 
         l.length
       )
     )
     const vCenter = (vSpace * maxLayer) / 2
 
     // calculate locations of nodes
-    networkOutput.forEach((o, i) => {
+    networkOutput.outputMap.forEach((o, i) => {
       const layerNodes = []
       let vStart = vCenter - (((o.length - 1) / 2) * vSpace)
       o.forEach((l, j) => {
@@ -129,5 +155,5 @@ const NetworkView = ({network, networkOutput}) => {
 export {
   NetworkView,
   NetworkControls,
-  NetworkOutput
+  NetworkOptions
 }

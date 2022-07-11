@@ -15,7 +15,7 @@ const StructureControls = ({
     var newStructure = [...netStructure]
 
     const i = e.target.dataset.i
-    const val = e.target.value
+    const val = Number(e.target.value)
  
     newStructure[i] = val
     console.log(newStructure)
@@ -57,7 +57,7 @@ const StructureControls = ({
      setInputs(d)
     
     setNetwork(newNetwork)
-    setNetworkOutput(newNetwork.evaluate(d).outputMap)
+    setNetworkOutput(newNetwork.evaluate(d))
   }
 
   return (
@@ -105,7 +105,7 @@ const InputControls = ({
   const updateOutput = (event) => {
     event.preventDefault()
 
-    var o = network.evaluate(inputs).outputMap
+    var o = network.evaluate(inputs)
     setNetworkOutput(o)
   }
 
