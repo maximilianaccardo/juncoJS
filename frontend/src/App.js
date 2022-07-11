@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { Network } from 'junco'
 
-import { NetworkControls, NetworkView, NetworkOptions } from "./components/Network";
+import { NetworkControls, NetworkOptions } from "./components/Network";
 import { Training } from "./components/Training"
+import { NetworkView } from "./components/NetworkView"
 
 function App() {
   // default network structure
@@ -24,29 +25,33 @@ function App() {
 
   return (
     <div className="App">
-      <NetworkOptions
-        options={options}
-        setOptions={setOptions}
-      ></NetworkOptions>
-      {
-        options.training &&
-        <Training
+      <div className='sidePanel'>
+        <NetworkOptions
+          options={options}
+          setOptions={setOptions}
+        ></NetworkOptions>
+        {
+          options.training &&
+          <Training
+            network={network}
+          ></Training>
+        }
+        <NetworkControls 
           network={network}
-        ></Training>
-      }
-      <NetworkControls 
-        network={network}
-        setNetworkOutput={setNetworkOutput}
-        setNetwork={setNetwork}
-        netStructure={netStructure}
-        setNetStructure={setNetStructure}
-        inputs={inputs}
-        setInputs={setInputs}
-      ></NetworkControls>
-      <NetworkView
-        network={network}
-        networkOutput={networkOutput}>
-      </NetworkView>
+          setNetworkOutput={setNetworkOutput}
+          setNetwork={setNetwork}
+          netStructure={netStructure}
+          setNetStructure={setNetStructure}
+          inputs={inputs}
+          setInputs={setInputs}
+        ></NetworkControls>
+      </div>
+      <div className='networkView'>
+        <NetworkView
+          network={network}
+          networkOutput={networkOutput}>
+        </NetworkView>
+      </div>
     </div>
   );
 }

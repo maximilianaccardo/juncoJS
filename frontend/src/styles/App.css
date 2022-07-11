@@ -1,0 +1,13 @@
+.networkView {
+  float: right;
+  width: 75%;
+}
+
+.sidePanel {
+  width: 25%;
+  float:left
+}
+
+.genericInput {
+  width: 15%;
+}

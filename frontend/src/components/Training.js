@@ -5,13 +5,19 @@ const Training = ({
   network,
   networkOutput
 }) => {
-  // const [expectedOutputs, setExpectedOutputs] = useState
+  const nOutputs = network.nOutputs
+  const [expectedOutputs, setExpectedOutputs] = useState(Array(nOutputs).fill(0))
+
+  const handleExpectedChange = e => {
+
+  }
+  
   return (
     <div>
       <h2>Training</h2>
       <h3>Expected Outputs</h3>
       {
-        Array(network.nOutputs).fill(0).map((_, i) =>
+        Array(nOutputs).fill(0).map((_, i) =>
           (
             <div key={i}>
               <GenericInput

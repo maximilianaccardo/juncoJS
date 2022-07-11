@@ -16,6 +16,7 @@ const GenericInput = ({
         onChange={handleInputChange}
         value={value}
         onFocus={handleFocus}
+        className="genericInput"
       >
       </input>
   </span>
