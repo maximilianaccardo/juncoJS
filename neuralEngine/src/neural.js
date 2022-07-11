@@ -69,6 +69,7 @@ class Network {
     this.layers = []
     this.sizes = sizes
     this.nInputs = this.sizes[0]
+    this.nOutputs = this.sizes[this.sizes.length - 1]
 
     // add layers to network
     for(let i = 1; i < sizes.length; i++) {

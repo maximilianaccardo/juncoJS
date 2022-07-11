@@ -111,6 +111,12 @@ describe("Network", () => {
     expect(n.evaluate(inputs).outputMap[3])
       .toStrictEqual(n.evaluate(inputs).outputs)
   })
+
+  test('nOutputs is correct', () => {
+    const n = new Network([5, 6, 4])
+
+    expect(n.nOutputs).toEqual(4)
+  })
 })
 
 describe("NetworkOutput", () => {
