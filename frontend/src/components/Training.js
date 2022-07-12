@@ -3,13 +3,22 @@ import { GenericInput } from "./Inputs"
 
 const Training = ({
   network,
-  networkOutput
+  networkOutput,
+  expectedOutputs,
+  setExpectedOutputs,
+  loss
 }) => {
   const nOutputs = network.nOutputs
-  const [expectedOutputs, setExpectedOutputs] = useState(Array(nOutputs).fill(0))
 
   const handleExpectedChange = e => {
+    var newEO = [...expectedOutputs]
 
+    const i = e.target.dataset.i
+    const val = Number(e.target.value)
+
+
+    newEO[i] = val
+    setExpectedOutputs(newEO)
   }
   
   return (
@@ -21,6 +30,7 @@ const Training = ({
           (
             <div key={i}>
               <GenericInput
+                handleInputChange={handleExpectedChange}
                 i={i}
               ></GenericInput>
             </div>
@@ -28,6 +38,7 @@ const Training = ({
         )
       }
       <h3>Loss</h3>
+      <p>{loss}</p>
     </div>
   )
 }

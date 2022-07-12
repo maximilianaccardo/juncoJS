@@ -89,7 +89,9 @@ const InputControls = ({
   inputs,
   setInputs,
   network,
-  setNetworkOutput
+  setNetworkOutput,
+  setLoss,
+  expectedOutputs
 }) => {
   // change input state when form changed
   const handleInputChange = (event) => {
@@ -107,6 +109,9 @@ const InputControls = ({
 
     var o = network.evaluate(inputs)
     setNetworkOutput(o)
+
+    console.log(o)
+    setLoss(o.loss(expectedOutputs))
   }
 
   return (

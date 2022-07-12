@@ -1,5 +1,4 @@
 import React from 'react'
-import chroma from "chroma-js"
 
 import { StructureControls, InputControls } from './Controls'
 
@@ -10,7 +9,9 @@ const NetworkControls = ({
     netStructure,
     setNetStructure,
     inputs,
-    setInputs
+    setInputs,
+    setLoss,
+    expectedOutputs
   }) => {
   return (
     <div>
@@ -30,6 +31,8 @@ const NetworkControls = ({
         setInputs={setInputs}
         network={network}
         setNetworkOutput={setNetworkOutput}
+        setLoss={setLoss}
+        expectedOutputs={expectedOutputs}
       ></InputControls>
     </div>
   )

@@ -18,6 +18,10 @@ function App() {
 
   const [networkOutput, setNetworkOutput] = useState(network.evaluate(inputs))
 
+  const [expectedOutputs, setExpectedOutputs] = useState(Array(network.nOutputs).fill(0))
+
+  const [loss, setLoss] = useState(null)
+
   // options
   const [options, setOptions] = useState({
     training: false
@@ -34,6 +38,9 @@ function App() {
           options.training &&
           <Training
             network={network}
+            expectedOutputs={expectedOutputs}
+            setExpectedOutputs={setExpectedOutputs}
+            loss={loss}
           ></Training>
         }
         <NetworkControls 
@@ -44,6 +51,8 @@ function App() {
           setNetStructure={setNetStructure}
           inputs={inputs}
           setInputs={setInputs}
+          setLoss={setLoss}
+          expectedOutputs={expectedOutputs}
         ></NetworkControls>
       </div>
       <div className='networkView'>

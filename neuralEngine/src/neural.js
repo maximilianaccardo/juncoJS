@@ -88,10 +88,10 @@ class Network {
     }
     
 
-    return {
+    return new NetworkOutput({
       outputs: inputs,
       outputMap: outputMap
-    }
+    })
   }
 }
 
