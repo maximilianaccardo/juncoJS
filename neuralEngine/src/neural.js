@@ -1,13 +1,25 @@
 import { RNG } from "./rng.js";
 import { getId } from "./id.js"
+import { relu } from "./activation.js"
 
 class Perceptron {
-  constructor(weights, bias = 0) {
-    this.weights = weights;
+  constructor(weights, bias = 0, params = {}) {
+    const defaults = {
+      activation: relu
+    }
+    params = {...defaults, ...params}
+    
+    this.activation = params.activation
+    this.weights = weights
     this.bias = bias
   }
 
-  evaluate(inputs) {
+  evaluate(inputs, params) {
+    const defaults = {
+      verbose: false
+    }
+    params = { ...defaults, ...params }
+
     if(inputs.length != this.weights.length) {
       throw new Error('Weights and inputs must be same length')
     }
@@ -20,10 +32,10 @@ class Perceptron {
       }
 
       // add bias
-      var a = a + this.bias
+      var z = a + this.bias
 
       // apply relu
-      return Math.max(0, a)
+      return this.activation(z)
     }
   }
 }
@@ -92,6 +104,10 @@ class Network {
       outputs: inputs,
       outputMap: outputMap
     })
+  }
+
+  train_batch(batch) {
+    
   }
 }
 
