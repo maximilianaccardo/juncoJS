@@ -24,18 +24,31 @@ class Perceptron {
       throw new Error('Weights and inputs must be same length')
     }
     else {
-      var a = 0
+      var z = 0
 
       for(let i = 0; i < inputs.length; i++) {
         // add each input to sum according to weights
-        a += inputs[i] * this.weights[i]
+        z += inputs[i] * this.weights[i]
       }
 
       // add bias
-      var z = a + this.bias
+      z = z + this.bias
 
-      // apply relu
-      return this.activation(z)
+      // apply activation function
+      const a = this.activation(z)
+  
+      if(params.verbose) {
+        return {
+          activation: a,
+          z: z,
+          bias: this.bias,
+          weights: this.weights
+        }
+      }
+      else {
+        return a
+      }
+      
     }
   }
 }
