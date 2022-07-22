@@ -11,7 +11,7 @@ describe('Perceptron', () => {
     const weights = [-0.5, -1, 1.5, 0.5]
     const bias = -2 
 
-    const p = new Perceptron(weights, bias)
+    const p = new Perceptron(weights, {bias: bias})
     expect(p.evaluate(inputs)).toBe(1.5)
   })
 
@@ -21,6 +21,21 @@ describe('Perceptron', () => {
 
     const p = new Perceptron(weights)
     expect(p.evaluate(inputs)).toBe(0)
+  })
+
+  test('perceptron outputs more in verbose mode', () => {
+    const inputs = [4, 2, 1]
+    const weights = [0, 3, 2]
+
+    const p = new Perceptron(weights, {bias: -10})
+    expect(p.evaluate(inputs, {
+      verbose: true
+    })).toStrictEqual({
+      activation: 0,
+      z: -2,
+      bias: -10,
+      weights: [0, 3, 2]
+    })
   })
 })
 

@@ -3,20 +3,21 @@ import { getId } from "./id.js"
 import { relu } from "./activation.js"
 
 class Perceptron {
-  constructor(weights, bias = 0, params = {}) {
+  constructor(weights, params = {}) {
     const defaults = {
-      activation: relu
+      activation: relu,
+      bias: 0
     }
     params = {...defaults, ...params}
     
     this.activation = params.activation
     this.weights = weights
-    this.bias = bias
+    this.bias = params.bias
   }
 
   evaluate(inputs, params) {
     const defaults = {
-      verbose: false
+      verbose: false,
     }
     params = { ...defaults, ...params }
 
