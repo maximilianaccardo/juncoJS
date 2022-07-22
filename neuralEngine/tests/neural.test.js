@@ -84,6 +84,26 @@ describe('Layer', () => {
     })
       .toThrowError("Input size mismatch")
   })
+
+  test('layer evaluates in verbose if param is given', () => {
+    const l = new Layer(2, 2)
+    const inputs = [1, 0]
+    expect(l.evaluate(inputs, {verbose: true}))
+      .toStrictEqual([
+        {
+          "activation": 0,
+          "bias": 0,
+          "weights": [-0.956162229384149, -0.2730261048826104],
+          "z": -0.956162229384149
+        },
+        {
+          "activation": 0,
+          "bias": 0,
+          "weights": [-1.8416271847835968, -1.1408820709540242],
+          "z": -1.8416271847835968
+        }
+      ])
+  })
 })
 
 describe("Network", () => {
