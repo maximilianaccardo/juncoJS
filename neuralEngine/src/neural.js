@@ -116,8 +116,14 @@ class Network {
 
   constructor(sizes, seed = 42) {
     this.layers = []
+
+    // number of perceptrons in each layer
     this.sizes = sizes
+
+    // inputs to first layer
     this.nInputs = this.sizes[0]
+
+    // outputs from last layer
     this.nOutputs = this.sizes[this.sizes.length - 1]
 
     // add layers to network
@@ -137,19 +143,40 @@ class Network {
   }
 
   // get output of neural network
-  evaluate(inputs) {
-     var outputMap = [inputs]
+  evaluate(inputs, params) {
+    const defaults = {
+      verbose: true
+    }
+    params = {...defaults, ...params}
+
+    // map of outputs (activations) 
+    var outputMap = [inputs]
+
+    // map of z (before activation function applied)
+    var zMap = []
+
     for(let i = 0; i < this.layers.length; i++) {
       let l = this.layers[i]
 
-      inputs = l.evaluate(inputs)
+      // verbose outputs
+      var vOutput = l.evaluate(inputs, {verbose: true})
+
+      // set outputs (inputs for next iteration)
+      inputs = vOutput.map(o => o.activation)
+
+      // set zs
+      var zs = vOutput.map(o => o.z)
+
+      // update maps (2D)
       outputMap.push(inputs)
+      zMap.push(zs)
     }
     
 
     return new NetworkOutput({
       outputs: inputs,
-      outputMap: outputMap
+      outputMap: outputMap,
+      zMap: zMap
     })
   }
 
@@ -182,6 +209,7 @@ class NetworkOutput {
   constructor(outputs) {
     this.outputs = outputs.outputs
     this.outputMap = outputs.outputMap
+    this.zMap = outputs.zMap
   }
 
   // calculate loss
