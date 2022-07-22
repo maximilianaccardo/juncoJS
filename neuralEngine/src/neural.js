@@ -76,14 +76,34 @@ class Layer {
     }
   }
 
-  evaluate(inputs) {
+  // iterate over perceptrons
+  iterate(f) {
+    for(perceptron in this.perceptrons) {
+      f(perceptron)
+    }
+  }
+
+  evaluate(inputs, params) {
+    const defaults = {
+      verbose: false
+    }
+    params = {...defaults, ...params}
+
     if(inputs.length != this.nInputs) {
       throw new Error(`Input size mismatch: expected ${this.nInputs} got ${inputs.length}`)
     }
 
     var outputs = []
+
+    // iterate through perceptrons
     for(let i = 0; i < this.size; i++) {
-      outputs.push(this.perceptrons[i].evaluate(inputs))
+      var p = this.perceptrons[i]
+
+      // evaluate each perceptron with inputs
+      var output = p.evaluate(inputs, {verbose: params.verbose})
+
+      // add activation from each perceptron to output
+      outputs.push(output)
     }
 
     return outputs
@@ -91,6 +111,9 @@ class Layer {
 }
 
 class Network {
+  // private fields
+  #zeroNabla
+
   constructor(sizes, seed = 42) {
     this.layers = []
     this.sizes = sizes
@@ -101,6 +124,16 @@ class Network {
     for(let i = 1; i < sizes.length; i++) {
       this.layers.push(new Layer(sizes[i], sizes[i - 1], seed))
     }
+
+    // starting nablas (used for training)
+    this.#zeroNabla = this.layers.map(l => {
+      l.perceptrons.map(p => {
+        return {
+          weights: Array(p.weights.length).fill(0),
+          bias: 0
+        }
+      })
+    })
   }
 
   // get output of neural network
@@ -120,8 +153,28 @@ class Network {
     })
   }
 
+  // iterate over each layer
+  iterate(f) {
+    for(layer in this.layers) {
+      f(layer)
+    }
+  }
+
+  // train on one mini-batch of examples
   train_batch(batch) {
-    
+
+  
+    for(example in batch) {
+      var nabla = this.#zeroNabla
+
+    }
+  }
+
+  // run backpropagation one one example
+  backprop(x, y) {
+    nabla = this.#zeroNabla
+
+
   }
 }
 
